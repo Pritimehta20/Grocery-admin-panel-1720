@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import toast  from 'react-hot-toast';
-import axios from 'axios'
+import Axios from '../utils/Axios';
+import summaryApi from '../common/summaryApi';
+import AxiosToastError from '../utils/AxiosToastError';
+import { Link, useNavigate } from 'react-router-dom';
 const Register = () => {
     const [data,setData]=useState({
         name:"",
@@ -15,6 +18,9 @@ const Register = () => {
     const [showPassword,setshowPassword]=useState(false)
 
     const [showconfirmpass,setshowconfirmpass]=useState(false)
+
+    const navigate=useNavigate()
+
     const handleChange=(e)=>{
         const {name,value}=e.target;
 
@@ -28,7 +34,7 @@ const Register = () => {
 
     const validvalue=Object.values(data).every(el=>el)
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault()
 
         if(data.password !== data.confirmpassword){
@@ -38,6 +44,31 @@ const Register = () => {
             return
         }
 
+        try{
+            const response= await Axios({
+            ...summaryApi.register,
+            data:data
+        })
+        console.log(response)
+        if(response.data.error){
+            toast.error(response.data.message)
+        }
+        if(response.data.success){
+            toast.success(response.data.message)
+            setData({
+                name:"",
+                email:"",
+                password:"",
+                confirmpassword:""
+            })
+            navigate("/login")
+        }
+
+        console.log("response",response)
+        } 
+        catch(error){
+            AxiosToastError(error)
+        }
     }
   return (
     <section className=' container mx-auto w-full px-2 py-15 '>
@@ -112,6 +143,12 @@ const Register = () => {
                 <button  disabled={!validvalue} className={ ` ${validvalue ? "bg-green-800 hover:bg-green-900" :" bg-gray-500" }  w-full py-2 rounded  text-white my-3  font-semibold`}>Register</button>
 
             </form>
+
+            <p>
+                Already have account ?
+                <Link to={"/login"} className='font-semibold text-green-600'>Login
+                </Link>
+            </p>
         </div>
     </section>
   )

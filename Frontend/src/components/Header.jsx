@@ -5,12 +5,15 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useMobile from '../hooks/useMobile';
+import { useSelector } from 'react-redux';
 const Header = () => {
     const [isMobile]=useMobile()
     const location=useLocation()
     const navigate=useNavigate()
     const isSearchPage=location.pathname==="/search"
 
+    const user=useSelector((state)=>state?.user)
+    console.log('user from store',user)
     const redirectToLoginPage=()=>{
         navigate("/login")
     }
