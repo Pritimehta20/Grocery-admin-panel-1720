@@ -17,5 +17,7 @@ async function connectDB(){
         process.exit(1)
     }
 }
+console.log("Connecting to MongoDB:", process.env.MONGODB_URI);
+
 
 export default connectDB
