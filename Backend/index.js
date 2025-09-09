@@ -7,6 +7,10 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import connectDB from './config/connectDb.js'
 import userRouter from './route/userroute.js'
+import categoryRouter from './route/Categoryrout.js'
+import uploadRouter from './route/uploadroute.js'
+import { subcategoryRouter } from './route/subcategoryroute.js'
+import { productRouter } from './route/productroute.js'
 
 const app = express()
 app.use(cors({
@@ -30,8 +34,10 @@ app.get("/",(request,response)=>{
 })
 
 app.use('/api/user',userRouter)
-
-
+app.use('/api/category',categoryRouter)
+app.use("/api/file",uploadRouter)
+app.use("/api/subcategory",subcategoryRouter)
+app.use("/api/product",productRouter)
 connectDB().then(()=>{
     app.listen(PORT,()=>{
         console.log("Server is running",PORT)

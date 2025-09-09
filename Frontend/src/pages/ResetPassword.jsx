@@ -2,11 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { FaEye } from 'react-icons/fa6'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { FaEyeSlash } from "react-icons/fa6";
+import { Link,useLocation, useNavigate } from 'react-router-dom'
 import summaryApi from '../common/summaryApi'
 import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/AxiosToastError'
 import Axios from '../utils/Axios'
+
 
 const ResetPassword = () => {
     const location=useLocation()
@@ -69,9 +71,6 @@ const ResetPassword = () => {
         }
         if(response.data.success){
             toast.success(response.data.message)
-            setData({
-                email:""
-            })
             navigate("/login",{
                 state:data})
                 setData({
@@ -102,10 +101,10 @@ const ResetPassword = () => {
                         <input
                             type={showPassword ?"text":"password"}
                             id='password'
-                            name='password'
+                            name='newPassword'
                             placeholder='Enter Password'
                             className='w-full outline-none'
-                            value={data.password}
+                            value={data.newPassword}
                             onChange={handleChange}
                     />
                     <div  onClick={()=>setshowPassword(prev=>!prev)}className='cursor-pointer'>

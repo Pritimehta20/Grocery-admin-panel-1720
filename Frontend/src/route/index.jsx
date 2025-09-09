@@ -7,6 +7,16 @@ import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import Verifyotp from "../pages/Verifyotp";
 import ResetPassword from "../pages/ResetPassword";
+import UserMenuMobile from "../pages/UserMenuMobile";
+import Dashboard from "../layouts/Dashboard";
+import Profile from "../pages/Profile";
+import MyOrder from "../pages/MyOrder";
+import Address from "../pages/Address";
+import Category from "../pages/Category";
+import Sub_Category from "../pages/Sub_Category";
+import Upload_product from "../pages/Upload_product";
+import Product_Admin from "../pages/Product_Admin";
+import Permision from "../layouts/Permision";
 
 const router= createBrowserRouter([
     {
@@ -37,6 +47,44 @@ const router= createBrowserRouter([
         {
             path:"resetpassword",
             element:<ResetPassword/>
+        },{
+            path:"usermenu",
+            element:<UserMenuMobile/>
+        },
+        {
+            path:"dashboard",
+            element:<Dashboard/>,
+            children:[
+                {
+                    path:"profile",
+                    element:<Profile/>
+                },
+                {
+                    path:"myorder",
+                    element:<MyOrder/>
+                },
+                {
+                    path:"saveaddress",
+                    element:<Address/>
+                },
+                {
+                    path:"category",
+                    element:<Permision><Category/></Permision>
+                },
+                {
+                    path:"sub_category",
+                    element:<Permision><Sub_Category/></Permision>
+                },
+                {
+                    path:"upload_product",
+                    element:<Permision><Upload_product/></Permision>
+                },{
+                    path:'product_admin',
+                    element:<Permision><Product_Admin/></Permision>
+                },{
+                    path:''
+                }
+            ]
         }
     ]
     }

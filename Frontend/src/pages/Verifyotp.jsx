@@ -20,7 +20,7 @@ const Verifyotp = () => {
     console.log("location",location)
 
     useEffect(()=>{
-        if(location?.state?.email){
+        if(!location?.state?.email){
             navigate("/forgotpassword")
         }
     })

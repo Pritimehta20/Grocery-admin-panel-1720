@@ -26,7 +26,7 @@ Axios.interceptors.request.use(
         return response
     },
     async(error)=>{
-        let originRequest=error.config
+        let  originRequest=error.config;
         if(error.response.status === 401 && !originRequest.retry){
             originRequest.retry=true
             const refreshToken=localStorage.getItem("refreshtoken")
@@ -38,8 +38,8 @@ Axios.interceptors.request.use(
                 }
 
             }
-            return Promise.reject(error)
         }
+        return Promise.reject(error)
     }
 )
 const refreshAccessToken=async(refreshToken)=>{
