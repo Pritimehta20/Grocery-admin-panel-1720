@@ -11,6 +11,7 @@ import categoryRouter from './route/Categoryrout.js'
 import uploadRouter from './route/uploadroute.js'
 import { subcategoryRouter } from './route/subcategoryroute.js'
 import { productRouter } from './route/productroute.js'
+import cartRouter from './route/cartroute.js'
 
 const app = express()
 app.use(cors({
@@ -38,6 +39,9 @@ app.use('/api/category',categoryRouter)
 app.use("/api/file",uploadRouter)
 app.use("/api/subcategory",subcategoryRouter)
 app.use("/api/product",productRouter)
+app.use("/api/cart",cartRouter)
+// app.use('/api/order',orderRouter)
+
 connectDB().then(()=>{
     app.listen(PORT,()=>{
         console.log("Server is running",PORT)
