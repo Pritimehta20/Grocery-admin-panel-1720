@@ -9,6 +9,9 @@ import useMobile from '../hooks/useMobile';
 import { useSelector } from 'react-redux';
 import { VscTriangleDown, VscTriangleUp}from "react-icons/vsc";
 import UserMenu from './UserMenu';
+import DisplayCartItem from './DisplayCartItem';
+import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees';
+import { useGlobalContext } from '../provider/GlobalProvider';
 
 const Header = () => {
     const [isMobile]=useMobile()
@@ -27,6 +30,7 @@ const Header = () => {
     const user=useSelector((state)=>state?.user)
 
     console.log('user from store',user)
+
     const redirectToLoginPage=()=>{
         navigate("/login")
     }
@@ -35,8 +39,12 @@ const Header = () => {
     const handleCloseUserMenu = ()=>{
         setopenUserMenu(false)
     }
+
+    const cartItem = useSelector(state => state.cartItem.cart)
+     const { totalPrice, totalQty} = useGlobalContext()
+    const [openCartSection,setOpenCartSection] = useState(false)
   return (
-    <header className=' h-25 lg:h-20 lg:shadow-md sticky top-0 flex flex-col justify-center gap-1'>
+<header className="h-25 lg:h-20 bg-white shadow-md sticky top-0 z-50 flex flex-col justify-center gap-1">
         {
             !(isSearchPage && isMobile) && (
             <div className='container mx-auto flex items-center px-3 justify-between'>
@@ -102,14 +110,21 @@ const Header = () => {
                         <button onClick={redirectToLoginPage} className='font-semibold text-xl'>Login</button>
                         )
                     }
-                    <button className='flex items-center gap-2 bg-green-700 text-white hover:bg-green-800 rounded-md px-3 py-2'>
+                    <button onClick={()=>setOpenCartSection(true)} className='flex items-center gap-2 bg-green-700 text-white hover:bg-green-800 rounded-md px-3 py-2'>
                         <div className='hover:animate-bounce'>
                             <AiOutlineShoppingCart size={28}/>
                         </div>
                         <div className='font-semibold'>
+                            {
+                            cartItem[0] ? (
+                            <div>
+                            <p>{totalQty} Items</p>
+                            <p>{DisplayPriceInRupees(totalPrice)}</p>
+                            </div>
+                            ) : (
                             <p>My Cart</p>
-                            {/* <p>1 items</p>
-                            <p>total price</p> */}
+                            )
+                            }
                         </div>
                     </button>
                 </div>
@@ -120,6 +135,12 @@ const Header = () => {
         <div className='container mx-auto px-2 lg:hidden'>
             <Search/>
         </div>
+
+         {
+            openCartSection && (
+                <DisplayCartItem close={()=>setOpenCartSection(false)}/>
+            )
+        }
 
     </header>
   )

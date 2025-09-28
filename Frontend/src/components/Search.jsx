@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
-import { IoIosArrowRoundBack } from "react-icons/io";import { TypeAnimation } from 'react-type-animation';
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { TypeAnimation } from 'react-type-animation';
 import {Link, useLocation, useNavigate} from 'react-router-dom'
 import useMobile from '../hooks/useMobile';
 
@@ -8,6 +9,8 @@ const Search = () => {
 
     const navigate=useNavigate();
     const location=useLocation()
+    const params = useLocation()
+    const searchText = params.search.slice(3)
     const [isSearchPage,setIsSearchPage]=useState(false)
     const [isMobile]=useMobile()
     useEffect(()=>{
@@ -19,11 +22,16 @@ const Search = () => {
         navigate("/search")
     }
     console.log("search",isSearchPage)
+    
+     const handleOnChange = (e)=>{
+        const value = e.target.value
+        const url = `/search?q=${value}`
+        navigate(url)
+    }
 
   return (
     <div  className='w-full min-w-[300px] lg:min-w-[420px] h-11 lg:h-12 rounded-lg border overflow-hidden flex items-center text-gray-400 bg-slate-50 group focus-within:border-blue-500  group focus-within:shadow-md'>
         <div>
-            
             {
                 (isMobile && isSearchPage ) ? (
                     <Link to={"/"} className=' p-3 flex justify-center items-center h-full  text-gray-900 '>
@@ -34,10 +42,8 @@ const Search = () => {
                         <FaSearch size={16} />
                     </button>
                 )
-            }
-            
+            }    
         </div>
-
          <div className='w-full h-full'>
             {
                 !isSearchPage ? (
@@ -72,8 +78,10 @@ const Search = () => {
                         <input
                         type="text"
                         autoFocus
+                        defaultValue={searchText}
                         placeholder='Search for atta dal and more'
                         className='w-full h-full outline-none'
+                        onChange={handleOnChange}
                         ></input>
                     </div>
                 )
@@ -82,5 +90,4 @@ const Search = () => {
     </div>
   )
 }
-
 export default Search

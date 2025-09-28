@@ -78,7 +78,6 @@ const UserMenu = ({close}) => {
             }
             
           <Link onClick={handleClose} to={"/dashboard/myorder"}className='px-2 hover:bg-orange-200 py-1'>My Orders 📦</Link>
-          <Link onClick={handleClose} to={"/dashboard/saveaddress"} className='px-2 hover:bg-orange-200 py-1'>Save Address 📍</Link>
           <button onClick={handleLogout} className='text-left px-2 hover:bg-orange-200 py-1'>Log Out</button>
         </div>
     </div>

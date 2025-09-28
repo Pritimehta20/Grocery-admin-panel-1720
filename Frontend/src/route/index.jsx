@@ -11,12 +11,14 @@ import UserMenuMobile from "../pages/UserMenuMobile";
 import Dashboard from "../layouts/Dashboard";
 import Profile from "../pages/Profile";
 import MyOrder from "../pages/MyOrder";
-import Address from "../pages/Address";
 import Category from "../pages/Category";
 import Sub_Category from "../pages/Sub_Category";
 import Upload_product from "../pages/Upload_product";
 import Product_Admin from "../pages/Product_Admin";
 import Permision from "../layouts/Permision";
+import ProductListPage from "../pages/ProductListPage";
+import ProductDisplayPage from "../pages/ProductDisplayPage";
+import CartMobile from "../pages/CartMobile";
 
 const router= createBrowserRouter([
     {
@@ -64,10 +66,6 @@ const router= createBrowserRouter([
                     element:<MyOrder/>
                 },
                 {
-                    path:"saveaddress",
-                    element:<Address/>
-                },
-                {
                     path:"category",
                     element:<Permision><Category/></Permision>
                 },
@@ -81,11 +79,26 @@ const router= createBrowserRouter([
                 },{
                     path:'product_admin',
                     element:<Permision><Product_Admin/></Permision>
-                },{
-                    path:''
-                }
-            ]
-        }
+                }]
+            },
+            {
+                path:":category",
+                children:[
+                    {
+                        path:":subCategory",
+                        element:<ProductListPage/>
+                    }
+                ]
+            },
+             {
+                path : "product/:product",
+                element : <ProductDisplayPage/>
+            },
+             {
+                path : 'cart',
+                element : <CartMobile/>
+            },
+            
     ]
     }
 ])

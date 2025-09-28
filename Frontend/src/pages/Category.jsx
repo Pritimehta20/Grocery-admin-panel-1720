@@ -97,12 +97,9 @@ const Category = () => {
                   <img 
                       alt={category.name}
                       src={category.image}
-                      className='max-h-28 w-auto object-contain'
+                      className='max-h-45 w-50 object-contain'
                   />
-                  <div className='text-s font-semibold m-3 flex items-center justify-center'>
-                    <p>{category.name}</p>
-                  </div>
-                  <div className='items-center max-h-7 flex gap-1'>
+                  <div className='items-center max-h-8 flex gap-1 mt-2'>
                     <button onClick={()=>{
                       setOpenEdit(true)
                       setEditData(category)

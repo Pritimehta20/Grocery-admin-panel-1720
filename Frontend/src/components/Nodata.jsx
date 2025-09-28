@@ -1,9 +1,9 @@
 import React from 'react'
-import noDataImage from '../assets/nothing here yet.webp'
+import nothing_yet_here from '../assets/nothing_here_yet.webp'
 const Nodata = () => {
   return (
     <div className='flex flex-col items-center gap-2 p-4 justify-center'>
-        <img src={noDataImage}
+        <img src={nothing_yet_here}
         alt='no data'
         className='w-36'
         ></img>

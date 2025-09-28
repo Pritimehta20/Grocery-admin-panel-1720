@@ -10,6 +10,7 @@ import fetchUserDetails from '../utils/fetchUserDetails';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from '../store/userSlice';
 import image from '../assets/image.png'
+import isAdmin from '../utils/isAdmin';
 
 
 const Login = () => {
@@ -58,7 +59,11 @@ const Login = () => {
                 email:"",
                 password:""
             })
-            navigate("/")
+            if (isAdmin(userDetails.data.role)) {
+          navigate("/dashboard/profile")   // Admin goes here
+        } else {
+          navigate("/")                     // Normal user goes home
+        }
         }
 
         console.log("response",response)
