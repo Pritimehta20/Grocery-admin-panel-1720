@@ -11,6 +11,7 @@ import UserMenuMobile from "../pages/UserMenuMobile";
 import Dashboard from "../layouts/Dashboard";
 import Profile from "../pages/Profile";
 import MyOrder from "../pages/MyOrder";
+import OrderManagement from "../pages/OrderManagement";
 import Category from "../pages/Category";
 import Sub_Category from "../pages/Sub_Category";
 import Upload_product from "../pages/Upload_product";
@@ -19,6 +20,7 @@ import Permision from "../layouts/Permision";
 import ProductListPage from "../pages/ProductListPage";
 import ProductDisplayPage from "../pages/ProductDisplayPage";
 import CartMobile from "../pages/CartMobile";
+// Checkout removed - integrated into cart/sidebar
 
 const router= createBrowserRouter([
     {
@@ -66,6 +68,10 @@ const router= createBrowserRouter([
                     element:<MyOrder/>
                 },
                 {
+                    path:"order-management",
+                    element:<Permision><OrderManagement/></Permision>
+                },
+                {
                     path:"category",
                     element:<Permision><Category/></Permision>
                 },
@@ -97,9 +103,9 @@ const router= createBrowserRouter([
              {
                 path : 'cart',
                 element : <CartMobile/>
-            },
-            
-    ]
+            }
+        ]
     }
 ])
 export default router
+

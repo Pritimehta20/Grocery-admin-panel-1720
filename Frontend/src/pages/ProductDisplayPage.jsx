@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Axios from '../utils/Axios'
 import summaryApi from '../common/summaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
-import { useParams } from 'react-router-dom'
-import { FaAngleRight,FaAngleLeft } from "react-icons/fa6";
+import { useParams, useNavigate } from 'react-router-dom'
+import { FaAngleRight, FaAngleLeft, FaArrowLeft, FaStar } from "react-icons/fa6";
 import Divider from '../components/Divider'
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees'
 import { PriceWithDiscount } from '../utils/PriceWithDiscount'
@@ -14,215 +14,215 @@ import Wide_Assortment from '../assets/Wide_Assortment.png'
 
 const ProductDisplayPage = () => {
   const params = useParams()
-  let productId = params?.product?.split("-")?.slice(-1)[0]
-  const [data,setData] = useState({
-    name : "",
-    image : []
-  })
-  const [image,setImage] = useState(0)
-  const [loading,setLoading] = useState(false)
+  const navigate = useNavigate()
+  const productId = params?.product?.split("-")?.slice(-1)[0]
+  
+  const [data, setData] = useState({ name: "", image: [], description: "", unit: "", price: 0, discount: 0, stock: 0 })
+  const [image, setImage] = useState(0)
+  const [loading, setLoading] = useState(true)
   const imageContainer = useRef()
 
-  const fetchProductDetails = async()=>{
+  const fetchProductDetails = async () => {
     try {
-        const response = await Axios({
-          ...summaryApi.getProductDetails,
-          data : {
-            productId : productId 
-          }
-        })
-
-        const { data : responseData } = response
-
-        if(responseData.success){
-          setData(responseData.data)
-        }
+      setLoading(true)
+      const response = await Axios({
+        ...summaryApi.getProductDetails,
+        data: { productId: productId }
+      })
+      if (response.data.success) {
+        setData(response.data.data)
+      }
     } catch (error) {
       AxiosToastError(error)
-    }finally{
+    } finally {
       setLoading(false)
     }
   }
 
-  useEffect(()=>{
-    fetchProductDetails()
-  },[params])
-  
-  const handleScrollRight = ()=>{
-    imageContainer.current.scrollLeft += 100
-  }
-  const handleScrollLeft = ()=>{
-    imageContainer.current.scrollLeft -= 100
-  }
-  console.log("product data",data)
-  return (
-    <section className='container mx-auto p-4 grid lg:grid-cols-2 '>
-        <div className=''>
-            <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full'>
-                <img
-                    src={data.image[image]}
-                    className='w-full h-full object-scale-down'
-                /> 
-            </div>
-            <div className='flex items-center justify-center gap-3 my-2'>
-              {
-                data.image.map((img,index)=>{
-                  return(
-                    <div key={img+index+"point"} className={`bg-slate-200 w-3 h-3 lg:w-5 lg:h-5 rounded-full ${index === image && "bg-slate-300"}`}></div>
-                  )
-                })
-              }
-            </div>
-            <div className='grid relative'>
-                <div ref={imageContainer} className='flex gap-4 z-10 relative w-full overflow-x-auto scrollbar-none'>
-                      {
-                        data.image.map((img,index)=>{
-                          return(
-                            <div className='w-20 h-20 min-h-20 min-w-20 scr cursor-pointer shadow-md' key={img+index}>
-                              <img
-                                  src={img}
-                                  alt='min-product'
-                                  onClick={()=>setImage(index)}
-                                  className='w-full h-full object-scale-down' 
-                              />
-                            </div>
-                          )
-                        })
-                      }
-                </div>
-                <div className='w-full -ml-3 h-full hidden lg:flex justify-between absolute  items-center'>
-                    <button onClick={handleScrollLeft} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
-                        <FaAngleLeft/>
-                    </button>
-                    <button onClick={handleScrollRight} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
-                        <FaAngleRight/>
-                    </button>
-                </div>
-            </div>
-            <div>
-            </div>
+  useEffect(() => { fetchProductDetails() }, [params])
 
-            <div className='my-4  hidden lg:grid gap-3 '>
-                <div>
-                    <p className='font-semibold'>Description</p>
-                    <p className='text-base'>{data.description}</p>
-                </div>
-                <div>
-                    <p className='font-semibold'>Unit</p>
-                    <p className='text-base'>{data.unit}</p>
-                </div>
-                {
-                  data?.more_details && Object.keys(data?.more_details).map((element,index)=>{
-                    return(
-                      <div>
-                          <p className='font-semibold'>{element}</p>
-                          <p className='text-base'>{data?.more_details[element]}</p>
-                      </div>
-                    )
-                  })
-                }
+  const handleScroll = (direction) => {
+    imageContainer.current.scrollLeft += direction === 'left' ? -90 : 90
+  }
+
+  const SkeletonLoader = () => (
+    <div className='container mx-auto px-4 py-8 space-y-6 animate-pulse'>
+      <div className='h-6 w-32 bg-gray-200 rounded-lg'></div>
+      <div className='space-y-4'>
+        <div className='w-full h-64 sm:h-72 lg:h-[450px] bg-gray-200 rounded-2xl'></div>
+        <div className='flex gap-2 px-2'>
+          <div className='w-16 h-1 bg-gray-300 rounded-full'></div>
+          <div className='w-3 h-1 bg-gray-300 rounded-full'></div>
+          <div className='w-3 h-1 bg-gray-300 rounded-full'></div>
+        </div>
+        <div className='flex gap-2 overflow-hidden'>
+          <div className='w-16 h-16 bg-gray-200 rounded-xl flex-shrink-0'></div>
+          <div className='w-16 h-16 bg-gray-200 rounded-xl flex-shrink-0'></div>
+        </div>
+      </div>
+      <div className='space-y-4'>
+        <div className='h-7 w-48 bg-gray-200 rounded-xl'></div>
+        <div className='space-y-3'>
+          <div className='h-5 w-3/4 bg-gray-200 rounded-lg'></div>
+          <div className='h-12 w-full bg-gray-200 rounded-xl'></div>
+        </div>
+      </div>
+    </div>
+  )
+
+  if (loading) return <SkeletonLoader />
+
+  return (
+    <section className='container mx-auto px-4 py-6 lg:py-10 max-w-6xl'>
+      
+      {/* Back Button */}
+      <button 
+        onClick={() => navigate(-1)} 
+        className='flex items-center gap-2 mb-6 p-2 rounded-lg hover:bg-gray-50 transition-colors group'
+      >
+        <FaArrowLeft className='text-sm group-hover:-translate-x-1 transition-transform' />
+        <span className='font-medium text-sm text-gray-700'>Back</span>
+      </button>
+
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12'>
+        
+        {/* Images */}
+        <div className='space-y-4'>
+          {/* Main Image */}
+          <div className='relative bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group'>
+            <div className='w-full h-64 sm:h-72 lg:h-[450px] relative'>
+              <img
+                src={data.image[image]}
+                className='w-full h-full object-contain p-6 lg:p-8 transition-transform duration-300 group-hover:scale-105'
+                alt={data.name}
+              />
             </div>
+            
+            {/* Dots */}
+            <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+              {data.image.map((_, index) => (
+                <button 
+                  key={index}
+                  onClick={() => setImage(index)}
+                  className={`h-2 w-2 sm:w-2.5 rounded-full transition-all duration-300 shadow-sm ${
+                    index === image 
+                      ? 'w-8 sm:w-10 bg-green-600 shadow-green-500/50 scale-110' 
+                      : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Thumbnails */}
+          <div className='relative'>
+            <div ref={imageContainer} className='flex gap-2.5 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory'>
+              {data.image.map((img, index) => (
+                <div 
+                  key={img + index} 
+                  onClick={() => setImage(index)}
+                  className={`w-16 h-16 sm:w-18 sm:h-18 rounded-xl border-2 cursor-pointer flex-shrink-0 transition-all duration-200 shadow-sm snap-center hover:shadow-md ${
+                    index === image 
+                      ? 'border-green-500 ring-2 ring-green-100 scale-105 bg-green-50' 
+                      : 'border-gray-200 hover:border-gray-300 hover:scale-105'
+                  }`}
+                >
+                  <img src={img} className='w-full h-full object-cover rounded-lg p-1' alt='thumbnail' />
+                </div>
+              ))}
+            </div>
+            {/* Scroll Arrows */}
+            <button 
+              onClick={() => handleScroll('left')} 
+              className='absolute left-0 top-1/2 -translate-y-1/2 p-1.5 bg-white rounded-full shadow-md hover:shadow-lg -ml-1'
+            >
+              <FaAngleLeft size={12} className='text-gray-600' />
+            </button>
+            <button 
+              onClick={() => handleScroll('right')} 
+              className='absolute right-0 top-1/2 -translate-y-1/2 p-1.5 bg-white rounded-full shadow-md hover:shadow-lg -mr-1'
+            >
+              <FaAngleRight size={12} className='text-gray-600' />
+            </button>
+          </div>
         </div>
 
+        {/* Product Info */}
+        <div className='lg:pt-4 space-y-6 lg:space-y-8'>
+          
+          {/* Header */}
+          <div className='space-y-3'>
+            <div className='flex items-center gap-3 flex-wrap'>
+              <span className='px-2.5 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full'>
+                Top Rated
+              </span>
+              <span className='text-xs text-gray-500 font-medium'>{data.unit}</span>
+            </div>
+            <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight line-clamp-2'>
+              {data.name}
+            </h1>
+          </div>
 
-        <div className='p-4 lg:pl-7 text-base lg:text-lg'>
-            <p className='bg-green-300 w-fit px-2 rounded-full'>10 Min</p>
-            <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>  
-            <p className=''>{data.unit}</p> 
-            <Divider/>
-            <div>
-              <p className=''>Price</p> 
-              <div className='flex items-center gap-2 lg:gap-4'>
-                <div className='border border-green-600 px-4 py-2 rounded bg-green-50 w-fit'>
-                    <p className='font-semibold text-lg lg:text-xl'>{DisplayPriceInRupees(PriceWithDiscount(data.price,data.discount))}</p>
+          {/* Price Card */}
+          <div className='bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow'>
+            <div className='space-y-4'>
+              <div className='flex items-start justify-between'>
+                <div>
+                  <p className='text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2'>Price</p>
+                  <div className='flex items-baseline gap-3'>
+                    <span className='text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900'>
+                      {DisplayPriceInRupees(PriceWithDiscount(data.price, data.discount))}
+                    </span>
+                    {data.discount > 0 && (
+                      <span className='text-lg font-medium text-gray-500 line-through'>
+                        {DisplayPriceInRupees(data.price)}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                {
-                  data.discount && (
-                    <p className='line-through'>{DisplayPriceInRupees(data.price)}</p>
-                  )
-                }
-                {
-                  data.discount && (
-                    <p className="font-bold text-green-600 lg:text-2xl">{data.discount}% <span className='text-base text-neutral-500'>Discount</span></p>
-                  )
-                }
-                
+                {data.discount > 0 && (
+                  <div className='bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm font-semibold'>
+                    {data.discount}% OFF
+                  </div>
+                )}
               </div>
 
-            </div> 
-              
-              {
-                data.stock === 0 ? (
-                  <p className='text-lg text-red-500 my-2'>Out of Stock</p>
-                ) 
-                : (
-                  // <button className='my-4 px-4 py-1 bg-green-600 hover:bg-green-700 text-white rounded'>Add</button>
-                  <div className='my-4'>
-                    <AddToCartButton data={data}/>
-                  </div>
-                )
-              }
-           
-
-            <h2 className='font-semibold'>Why shop from binkeyit? </h2>
-            <div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={minute_delivery}
-                        alt='superfast delivery'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Superfast Delivery</div>
-                        <p>Get your orer delivered to your doorstep at the earliest from dark stores near you.</p>
-                      </div>
-                  </div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={Best_Prices_Offers}
-                        alt='Best prices offers'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Best Prices & Offers</div>
-                        <p>Best price destination with offers directly from the nanufacturers.</p>
-                      </div>
-                  </div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={Wide_Assortment}
-                        alt='Wide Assortment'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Wide Assortment</div>
-                        <p>Choose from 5000+ products across food personal care, household & other categories.</p>
-                      </div>
-                  </div>
-            </div>
-
-            {/****only mobile */}
-            <div className='my-4 grid gap-3 '>
-                <div>
-                    <p className='font-semibold'>Description</p>
-                    <p className='text-base'>{data.description}</p>
+              {data.stock === 0 ? (
+                <div className='w-full py-4 bg-gray-50 text-gray-500 rounded-xl font-semibold text-center border border-dashed border-gray-200'>
+                  Out of Stock
                 </div>
-                <div>
-                    <p className='font-semibold'>Unit</p>
-                    <p className='text-base'>{data.unit}</p>
-                </div>
-                {
-                  data?.more_details && Object.keys(data?.more_details).map((element,index)=>{
-                    return(
-                      <div>
-                          <p className='font-semibold'>{element}</p>
-                          <p className='text-base'>{data?.more_details[element]}</p>
-                      </div>
-                    )
-                  })
-                }
+              ) : (
+                <AddToCartButton 
+                  data={data} 
+                  className="w-full py-4 text-sm sm:text-base font-semibold bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-95" 
+                />
+              )}
             </div>
+          </div>
+
+          {/* Benefits */}
+          <div className='space-y-3'>
+            {[
+              { img: minute_delivery, title: '10 Min Delivery', desc: 'From local store', color: 'text-green-600' },
+              { img: Best_Prices_Offers, title: 'Best Price', desc: 'Lowest in city', color: 'text-blue-600' }
+            ].map((item, idx) => (
+              <div key={idx} className='flex items-start gap-3 p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors'>
+                <img src={item.img} alt={item.title} className='w-9 h-9 flex-shrink-0 mt-0.5' />
+                <div>
+                  <p className='font-semibold text-sm text-gray-900'>{item.title}</p>
+                  <p className='text-xs text-gray-600 mt-0.5'>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Description */}
+          <div className='space-y-4 pt-4 border-t border-gray-100'>
+            <h3 className='text-lg font-semibold text-gray-900'>Description</h3>
+            <p className='text-sm leading-relaxed text-gray-700'>{data.description}</p>
+          </div>
         </div>
+      </div>
     </section>
   )
 }

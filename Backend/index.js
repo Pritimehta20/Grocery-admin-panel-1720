@@ -25,7 +25,7 @@ app.use(helmet({
     crossOriginResourcePolicy : false
 }))
 
-const PORT = 8080 || process.env.PORT 
+const PORT = process.env.PORT || 8080
 
 app.get("/",(request,response)=>{
     ///server to client
@@ -40,7 +40,9 @@ app.use("/api/file",uploadRouter)
 app.use("/api/subcategory",subcategoryRouter)
 app.use("/api/product",productRouter)
 app.use("/api/cart",cartRouter)
-// app.use('/api/order',orderRouter)
+import orderRouter from './route/orderroute.js'
+
+app.use('/api/order',orderRouter)
 
 connectDB().then(()=>{
     app.listen(PORT,()=>{

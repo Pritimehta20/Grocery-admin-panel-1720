@@ -1,4 +1,3 @@
-
 export const baseUrl="http://localhost:8080"
 
 const summaryApi={
@@ -125,6 +124,27 @@ const summaryApi={
     deleteCartItem : {
         url : '/api/cart/delete-cart-item',
         method : 'delete'
+    },
+    placeOrder : {
+        url : '/api/order/place-order',
+        method : 'post'
+    },
+    getUserOrders : {
+        url : '/api/order/get-user-orders',
+        method : 'get'
+    },
+    clearCart : {
+        url : '/api/order/clear-cart',
+        method : 'delete'
+    },
+    getAllOrders: {
+        url: '/api/order/get-all-orders',
+        method: 'get'
+    },
+    updateOrderStatus: {
+        url: '/api/order/update-status/:id',
+        method: 'put'
     }
 }
 export default summaryApi
+

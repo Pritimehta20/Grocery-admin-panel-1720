@@ -13,7 +13,6 @@ export const addToCartItemController = async(request,response)=>{
                 success : false
             })
         }
-
         const checkItemCart = await CartProductModel.findOne({
             userId : userId,
             productId : productId
@@ -133,6 +132,28 @@ export const deleteCartItemQtyController = async(request,response)=>{
         success : true,
         data : deleteCartItem
       })
+
+    } catch (error) {
+        return response.status(500).json({
+            message : error.message || error,
+            error : true,
+            success : false
+        })
+    }
+}
+
+export const clearCartController = async(request,response)=>{
+    try {
+        const userId = request.userId
+
+        const result = await CartProductModel.deleteMany({ userId })
+
+        return response.json({
+            message : "Cart cleared successfully",
+            data : result,
+            error : false,
+            success : true
+        })
 
     } catch (error) {
         return response.status(500).json({

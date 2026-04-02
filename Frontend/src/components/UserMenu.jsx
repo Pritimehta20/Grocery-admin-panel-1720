@@ -73,11 +73,15 @@ const UserMenu = ({close}) => {
             }
             {
               isAdmin(user.role) && (
-              <Link onClick={handleClose} to={"/dashboard/product_admin"}className='px-2 hover:bg-orange-200 py-1'>Product</Link>
+              <Link onClick={handleClose} to={"/dashboard/product_admin"} className='px-2 hover:bg-orange-200 py-1'>Product</Link>
               )
             }
-            
-          <Link onClick={handleClose} to={"/dashboard/myorder"}className='px-2 hover:bg-orange-200 py-1'>My Orders 📦</Link>
+            {
+              isAdmin(user.role) && (
+                <Link onClick={handleClose} to={"/dashboard/order-management"} className='px-2 hover:bg-orange-200 py-1'>Order Management 📋</Link>
+              )
+            }
+          <Link onClick={handleClose} to={"/dashboard/myorder"} className='px-2 hover:bg-orange-200 py-1'>My Orders 📦</Link>
           <button onClick={handleLogout} className='text-left px-2 hover:bg-orange-200 py-1'>Log Out</button>
         </div>
     </div>
