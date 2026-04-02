@@ -26,6 +26,9 @@ app.use(helmet({
 }))
 
 const PORT = process.env.PORT || 8080
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 
 app.get("/",(request,response)=>{
     ///server to client
