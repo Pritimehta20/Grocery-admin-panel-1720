@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import Uploadcategory from '../components/Uploadcategory'
+import Uploadcategory from '../components/Uploadcategory.jsx'
 import { FaPlus } from "react-icons/fa";
-import Nodata from '../components/Nodata';
-import Axios from '../utils/Axios';
+import Nodata from '../components/Nodata.jsx';
+import Axios from '../utils/Axios.js';
 import summaryApi from '../common/summaryApi';
-import EditCategory from '../components/EditCategory';
-import ConfirmBox from '../components/ConfirmBox';
-import AxiosToastError from '../utils/AxiosToastError';
+import EditCategory from '../components/EditCategory.jsx';
+import ConfirmBox from '../components/ConfirmBox.jsx';
+import AxiosToastError from '../utils/AxiosToastError.js';
 import toast from 'react-hot-toast';
-
 import { useSelector } from 'react-redux';
-import Loading from '../components/loading';
+import Loading from '../components/loading.jsx';
+
 
 const Category = () => {
   const [openuploadcategory,setopenupload]=useState(false)

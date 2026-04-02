@@ -6,7 +6,7 @@ import summaryApi from '../common/summaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import { useSelector } from 'react-redux';
 import { valideURLConvert } from '../utils/validURLConvert';
-import Loading from '../components/loading';
+import Loading from '../components/loading.jsx';
 import { FaChevronRight } from 'react-icons/fa6';
 
 const ProductListPage = () => {
