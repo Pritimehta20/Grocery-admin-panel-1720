@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import toast  from 'react-hot-toast';
-import Axios from '../utils/Axios';
-import summaryApi from '../common/summaryApi';
-import AxiosToastError from '../utils/AxiosToastError';
+import Axios from '../utils/Axios.js';
+import summaryApi from '../common/summaryApi.js';
+import AxiosToastError from '../utils/AxiosToastError.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 

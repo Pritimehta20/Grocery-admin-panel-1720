@@ -6,12 +6,12 @@ import { MdDelete  } from "react-icons/md";
 import { HiPencil } from "react-icons/hi";
 import { createColumnHelper } from '@tanstack/react-table'
 import toast from 'react-hot-toast';
-import ConfirmBox from '../components/ConfirmBox';
-import ViewImage from '../components/ViewImage'
-import summaryApi, { baseUrl } from '../common/summaryApi';
-import UploadSubCategory from '../components/UploadSubCategory';
-import DisplayTable from '../components/DisplayTable';
-import EditSubCategory from '../components/EditSubCategory';
+import ConfirmBox from '../components/ConfirmBox.jsx';
+import ViewImage from '../components/Viewimage.jsx'
+import summaryApi, { baseUrl } from '../common/summaryApi.js';
+import UploadSubCategory from '../components/UploadSubCategory.jsx';
+import DisplayTable from '../components/DisplayTable.jsx';
+import EditSubCategory from '../components/EditSubCategory.jsx';
 import AxiosToastError from '../utils/AxiosToastError.js';
 import Axios from '../utils/Axios.js';
 

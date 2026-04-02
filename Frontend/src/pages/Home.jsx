@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { valideURLConvert } from '../utils/validURLConvert';
-import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay.jsx';
 import banner from '../assets/banner.png';
 import banner1 from '../assets/banner1.png';
 import banner2 from '../assets/banner2.png';

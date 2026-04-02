@@ -3,7 +3,7 @@ import Uploadcategory from '../components/Uploadcategory.jsx'
 import { FaPlus } from "react-icons/fa";
 import Nodata from '../components/Nodata.jsx';
 import Axios from '../utils/Axios.js';
-import summaryApi from '../common/summaryApi';
+import summaryApi from '../common/summaryApi.js';
 import EditCategory from '../components/EditCategory.jsx';
 import ConfirmBox from '../components/ConfirmBox.jsx';
 import AxiosToastError from '../utils/AxiosToastError.js';

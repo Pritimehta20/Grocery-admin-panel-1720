@@ -9,8 +9,8 @@ import { MdDelete } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { uploadImage } from '../utils/uploadImage';
 import Addfieldcomponent from '../components/Addfieldcomponent';
-import ViewImage from '../components/ViewImage';
-import Successalert from '../utils/Successalert';
+import ViewImage from '../components/Viewimage.jsx';
+import Successalert from '../utils/Successalert.js';
 
 const Upload_product = () => {
   const [data,setData] = useState({

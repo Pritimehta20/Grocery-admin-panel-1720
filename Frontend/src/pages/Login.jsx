@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import toast  from 'react-hot-toast';
-import Axios from '../utils/Axios';
-import summaryApi from '../common/summaryApi';
-import AxiosToastError from '../utils/AxiosToastError';
+import Axios from '../utils/Axios.js';
+import summaryApi from '../common/summaryApi.js';
+import AxiosToastError from '../utils/AxiosToastError.js';
 import { Link, useNavigate } from 'react-router-dom';
-import fetchUserDetails from '../utils/fetchUserDetails';
+import fetchUserDetails from '../utils/fetchUserDetails.js';
 import { useDispatch } from 'react-redux';
-import { setUserDetails } from '../store/userSlice';
+import { setUserDetails } from '../store/userSlice.js';
 import image from '../assets/image.png'
-import isAdmin from '../utils/isAdmin';
+import isAdmin from '../utils/isAdmin.jsx';
 
 
 const Login = () => {
