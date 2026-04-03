@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FaCloudUploadAlt } from "react-icons/fa";
-import summaryApi from '../common/summaryApi'
-import Loading from '../components/loading'
-import AxiosToastError from '../utils/AxiosToastError'
+import summaryApi from '../common/summaryApi.js';
+import Loading from '../components/loading.jsx'
+import AxiosToastError from '../utils/AxiosToastError.js';
 import Axios from '../utils/Axios'
 import { MdDelete } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import { uploadImage } from '../utils/uploadImage';
-import Addfieldcomponent from '../components/Addfieldcomponent';
+import { uploadImage } from '../utils/uploadImage.js';
+import Addfieldcomponent from '../components/Addfieldcomponent.jsx';
 import ViewImage from '../components/Viewimage.jsx';
 import Successalert from '../utils/Successalert.js';
 
