@@ -10,7 +10,7 @@ const auth = async (request, response, next) => {
     if(!token){
       console.log('🚫 NO TOKEN');
       return response.status(401).json({
-        message : "Provide token"
+        message : "Login or Register "
       })
     }
 

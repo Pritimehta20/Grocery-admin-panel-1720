@@ -23,8 +23,8 @@
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",
+    "nodemailer": "^8.0.4",
     "nodemon": "^3.1.10",
-    "resend": "^4.5.2",
     "stripe": "^18.5.0"
   }
 }

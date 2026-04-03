@@ -1,4 +1,5 @@
 export const baseUrl=import.meta.env.VITE_API_URL
+// export const baseUrl=import.meta.env.BUrl
 console.log("baseurl",baseUrl)
 
 const summaryApi={

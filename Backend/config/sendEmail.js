@@ -1,30 +1,45 @@
-import { Resend } from 'resend';
-import dotenv from 'dotenv'
-dotenv.config()
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
-if(!process.env.RESEND_API){
-    console.log("Provide RESEND_API in side the .env file")
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.log('Provide EMAIL_USER and EMAIL_PASS in Backend/.env');
 }
 
-const resend = new Resend(process.env.RESEND_API);
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+  port: Number(process.env.EMAIL_PORT || 587),
+  secure: Number(process.env.EMAIL_PORT || 587) === 465,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
-const sendEmail = async({sendTo, subject, html })=>{
-    try {
-        const { data, error } = await resend.emails.send({
-            from: 'Binkey <obboarding@resend.dev>',
-            to: sendTo,
-            subject: subject,
-            html: html,
-        });
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('SMTP connection error:', error);
+  } else {
+    console.log('SMTP server is ready');
+  }
+});
 
-        if (error) {
-            return console.error({ error });
-        }
+const sendEmail = async ({ sendTo, subject, html, text }) => {
+  try {
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_FROM || `Harvest Green <${process.env.EMAIL_USER}>`,
+      to: sendTo,
+      subject,
+      html,
+      text: text || 'Please open this email in an HTML-supported email client.',
+    });
 
-        return data
-    } catch (error) {
-        console.log(error)
-    }
-}
+    console.log('Message sent:', info.messageId);
+    return { data: info.messageId };
+  } catch (error) {
+    console.error('Email send error:', error);
+    return null;
+  }
+};
 
-export default sendEmail
+export default sendEmail;

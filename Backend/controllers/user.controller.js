@@ -21,6 +21,13 @@ export async function registerUserController(request,response){
             })
         }
 
+        if (password.length < 6) {
+            return response.status(400).json({
+                message: "Password must be at least 6 characters long",
+                error: true,
+                success: false
+            })
+        }
         const user = await UserModel.findOne({ email })
 
         if(user){
@@ -47,7 +54,7 @@ export async function registerUserController(request,response){
 
         const verifyEmail = await sendEmail({
             sendTo : email,
-            subject : "Verify email from Blinky",
+            subject : "Verify email from Harvest Green",
             html : verifyEmailTemplate({
                 name,
                 url : VerifyEmailUrl
@@ -292,7 +299,7 @@ export async function forgotPasswordController(request,response) {
         }
 
         const otp = generatedOtp()
-        const expireTime = new Date() + 60 * 60 * 1000 // 1hr
+        const expireTime = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
         const update = await UserModel.findByIdAndUpdate(user._id,{
             forgot_password_otp : otp,
@@ -301,7 +308,7 @@ export async function forgotPasswordController(request,response) {
 
         await sendEmail({
             sendTo : email,
-            subject : "Forgot password from Binkeyit",
+            subject : "Forgot password from Hravest Green",
             html : forgotPasswordTemplate({
                 name : user.name,
                 otp : otp
@@ -395,6 +402,13 @@ export async function resetpassword(request,response){
                 message : "provide required fields email, newPassword, confirmPassword"
             })
         }
+        if (newPassword.length < 6) {
+    return response.status(400).json({
+        message: "Password must be at least 6 characters long",
+        error: true,
+        success: false
+    })
+}
 
         const user = await UserModel.findOne({ email })
 
