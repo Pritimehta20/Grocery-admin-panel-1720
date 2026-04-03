@@ -1,4 +1,5 @@
 export const baseUrl=process.env.Backend_url
+console.log("baseurl",baseUrl)
 
 const summaryApi={
     register:{
