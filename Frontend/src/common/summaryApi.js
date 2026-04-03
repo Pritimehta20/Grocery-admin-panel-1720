@@ -1,4 +1,4 @@
-export const baseUrl=process.env.Backend_url || "http://localhost:5000"
+export const baseUrl=process.env.Backend_url
 
 const summaryApi={
     register:{
