@@ -1,25 +1,25 @@
 import { BrowserRouter, createBrowserRouter } from "react-router";
 import App from "../App";
-import Home from "../pages/Home";
-import SearchPage from "../pages/SearchPage";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import ForgotPassword from "../pages/ForgotPassword";
-import Verifyotp from "../pages/Verifyotp";
-import ResetPassword from "../pages/ResetPassword";
-import UserMenuMobile from "../pages/UserMenuMobile";
-import Dashboard from "../layouts/Dashboard";
-import Profile from "../pages/Profile";
-import MyOrder from "../pages/MyOrder";
-import OrderManagement from "../pages/OrderManagement";
-import Category from "../pages/Category";
-import Sub_Category from "../pages/Sub_Category";
-import Upload_product from "../pages/Upload_product";
-import Product_Admin from "../pages/Product_Admin";
-import Permision from "../layouts/Permision";
-import ProductListPage from "../pages/ProductListPage";
-import ProductDisplayPage from "../pages/ProductDisplayPage";
-import CartMobile from "../pages/CartMobile";
+import Home from "../pages/Home.jsx";
+import SearchPage from "../pages/SearchPage.jsx";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx";
+import ForgotPassword from "../pages/ForgotPassword.jsx";
+import Verifyotp from "../pages/Verifyotp.jsx";
+import ResetPassword from "../pages/ResetPassword.jsx";
+import UserMenuMobile from "../pages/UserMenuMobile.jsx";
+import Dashboard from "../layouts/Dashboard.jsx";
+import Profile from "../pages/Profile.jsx";
+import MyOrder from "../pages/MyOrder.jsx";
+import OrderManagement from "../pages/OrderManagement.jsx";
+import Category from "../pages/Category.jsx";
+import Sub_Category from "../pages/Sub_Category.jsx";
+import Upload_product from "../pages/Upload_product.jsx";
+import Product_Admin from "../pages/Product_Admin.jsx";
+import Permision from "../layouts/Permision.jsx";
+import ProductListPage from "../pages/ProductListPage.jsx";
+import ProductDisplayPage from "../pages/ProductDisplayPage.jsx";
+import CartMobile from "../pages/CartMobile.jsx";
 // Checkout removed - integrated into cart/sidebar
 
 const router= createBrowserRouter([
