@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaUser } from "react-icons/fa";
-
 import UserAvatarEdit from '../components/UserAvatarEdit';
 import summaryApi from '../common/summaryApi';
 import AxiosToastError from '../utils/AxiosToastError';

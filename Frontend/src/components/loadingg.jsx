@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loading = () => {
+const Loadingg = () => {
   return (
     <div className='flex justify-center items-center'>
       <div role="status">
@@ -26,5 +26,5 @@ const Loading = () => {
   )
 }
 
-export default Loading
+export default Loadingg
 

@@ -9,10 +9,7 @@ import ConfirmBox from '../components/ConfirmBox.jsx';
 import AxiosToastError from '../utils/AxiosToastError.js';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import Loading from '../components/loading.jsx';
-
-
-
+import Loadingg from '../components/loadingg.jsx';
 
 const Category = () => {
   const [openuploadcategory,setopenupload]=useState(false)
@@ -119,7 +116,7 @@ const Category = () => {
               </div>
       {
             !loading && (
-                <Loading/>
+                <Loadingg/>
             )
         }
       

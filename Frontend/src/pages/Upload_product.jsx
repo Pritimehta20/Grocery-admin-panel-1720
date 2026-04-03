@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import summaryApi from '../common/summaryApi.js';
-import Loading from '../components/loading.jsx'
 import AxiosToastError from '../utils/AxiosToastError.js';
 import Axios from '../utils/Axios'
 import { MdDelete } from "react-icons/md";
@@ -11,6 +10,7 @@ import { uploadImage } from '../utils/uploadImage.js';
 import Addfieldcomponent from '../components/Addfieldcomponent.jsx';
 import ViewImage from '../components/Viewimage.jsx';
 import Successalert from '../utils/Successalert.js';
+import Loadingg from '../components/loadingg.jsx';
 
 const Upload_product = () => {
   const [data,setData] = useState({
@@ -186,7 +186,7 @@ const Upload_product = () => {
                       <label htmlFor='productImage' className='bg-blue-50 h-24 border rounded flex justify-center items-center cursor-pointer'>
                           <div className='text-center flex justify-center items-center flex-col'>
                             {
-                              imageLoading ?  <Loading/> : (
+                              imageLoading ?  <Loadingg/> : (
                                 <>
                                    <FaCloudUploadAlt size={35}/>
                                    <p>Upload Image</p>

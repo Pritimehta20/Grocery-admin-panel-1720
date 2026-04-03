@@ -6,7 +6,7 @@ import summaryApi from '../common/summaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import { useSelector } from 'react-redux';
 import { valideURLConvert } from '../utils/validURLConvert';
-import Loading from '../components/loading.jsx';
+import Loadingg from '../components/loadingg';
 import { FaChevronRight } from 'react-icons/fa6';
 
 const ProductListPage = () => {
@@ -244,7 +244,7 @@ const ProductListPage = () => {
 
             {loading && page === 1 ? (
               <div className="rounded-2xl border border-neutral-200 bg-white py-12 shadow-sm">
-                <Loading />
+                <Loadingg/>
               </div>
             ) : data.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-neutral-300 bg-white px-4 py-14 text-center shadow-sm">
@@ -268,7 +268,7 @@ const ProductListPage = () => {
 
                 {loading && page > 1 && (
                   <div className="mt-5 text-center">
-                    <Loading />
+                    <Loadingg/>
                   </div>
                 )}
 

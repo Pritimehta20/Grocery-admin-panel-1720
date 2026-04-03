@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import summaryApi from '../common/summaryApi.js'
 import Axios from '../utils/Axios.js'
 import AxiosToastError from '../utils/AxiosToastError.js'
-import Loading from '../components/loading.jsx'
 import Productcardadmin from '../components/Productcardadmin.jsx'
 import { IoSearchOutline } from "react-icons/io5";
+import Loadingg from '../components/loadingg.jsx'
 
 const Product_Admin = () => {
   const [productData,setProductData] = useState([])
@@ -92,7 +92,7 @@ const Product_Admin = () => {
         </div>
         {
           loading && (
-            <Loading/>
+            <Loadingg/>
           )
         }
 
