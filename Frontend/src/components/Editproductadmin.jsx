@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 import summaryApi from '../common/summaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import Axios from '../utils/Axios';
-import Viewimage from './ViewImage';
+import Viewimage from './Viewimage';
 import { uploadImage } from '../utils/uploadImage';
-import Loading from './loading';
 import Successalert from '../utils/Successalert';
 import { useSelector } from 'react-redux'
 import Addfieldcomponent from './Addfieldcomponent';
+import Loadingg from './loadingg';
 
 const Editproductadmin = ({close,data:propsData,fetchProductData}) => {
   const [data, setData] = useState({
@@ -194,7 +194,7 @@ const Editproductadmin = ({close,data:propsData,fetchProductData}) => {
                   <label htmlFor='productImage' className='bg-blue-50 h-24 border rounded flex justify-center items-center cursor-pointer'>
                     <div className='text-center flex justify-center items-center flex-col'>
                       {
-                        imageLoading ? <Loading/> : (
+                        imageLoading ? <Loadingg/> : (
                           <>
                             <FaCloudUploadAlt size={35} />
                             <p>Upload Image</p>

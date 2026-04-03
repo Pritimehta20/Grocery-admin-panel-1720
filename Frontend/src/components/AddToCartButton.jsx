@@ -5,8 +5,8 @@ import summaryApi from '../common/summaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
 import toast from 'react-hot-toast'
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import Loading from './loading'
 import Axios from '../utils/Axios'
+import Loadingg from './loadingg'
 
 const AddToCartButton = ({ data }) => {
   const { fetchCartItem, updateCartItem, deleteCartItem } = useGlobalContext()
@@ -121,7 +121,7 @@ const AddToCartButton = ({ data }) => {
           onClick={handleADDTocart}
           className='bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded'
         >
-          {loading ? <Loading /> : "Add"}
+          {loading ? <Loadingg/> : "Add"}
         </button>
       )}
     </div>
