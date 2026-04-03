@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import Axios from '../utils/Axios.js'
 import summaryApi from '../common/summaryApi.js'
-import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees,js'
+import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees.js'
 import toast from 'react-hot-toast'
 
 const OrderManagement = () => {
