@@ -33,7 +33,7 @@ const AddToCartButton = ({ data }) => {
     // Check if user has addresses
     if (!user.address_details || !Array.isArray(user.address_details) || user.address_details.length === 0) {
       toast.error('Please add your delivery address in Profile first')
-      navigate('/profile')
+    navigate('/dashboard/profile')
       return
     }
 
