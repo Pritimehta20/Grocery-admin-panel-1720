@@ -23,6 +23,13 @@ const AddToCartButton = ({ data }) => {
     e.preventDefault()
     e.stopPropagation()
 
+    // Check if logged in
+    if (!user?._id) {
+      toast.error('Please login or register first')
+      navigate('/login')
+      return
+    }
+
     // Check if user has addresses
     if (!user.address_details || !Array.isArray(user.address_details) || user.address_details.length === 0) {
       toast.error('Please add your delivery address in Profile first')
