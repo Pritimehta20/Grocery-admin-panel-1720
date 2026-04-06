@@ -231,6 +231,21 @@ const OrderManagement = () => {
                   ))}
                 </select>
               </div>
+              {/* Delivery Address Card */}
+              <div className="xl:col-span-2 p-4 bg-gradient-to-br from-emerald-50/80 to-teal-50/80 rounded-2xl backdrop-blur-sm border border-emerald-200/50 shadow-lg hover:shadow-xl transition-all">
+                <div className="flex items-start gap-3 mb-2">
+                  <span className="text-emerald-600 text-xl mt-0.5">📍</span>
+                  <h4 className="font-bold text-lg text-gray-900">Delivery Address</h4>
+                </div>
+                <div className="ml-8 space-y-1 text-sm">
+                  <p className="font-semibold text-gray-900">{order.deliveryAddress?.street || 'Address pending'}</p>
+                  <p className="text-gray-700">{order.deliveryAddress?.city}, {order.deliveryAddress?.state}</p>
+                  <p className="font-mono text-emerald-700 bg-emerald-100 px-2 py-1 rounded-lg inline-block text-xs">{order.deliveryAddress?.pincode}</p>
+                  {order.deliveryAddress?.lat && order.deliveryAddress?.lng && (
+                    <p className="text-xs text-gray-500 italic">Geo: {order.deliveryAddress.lat.toFixed(4)}, {order.deliveryAddress.lng.toFixed(4)}</p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         ))}

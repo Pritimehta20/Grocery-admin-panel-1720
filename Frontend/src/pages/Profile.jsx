@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaMapMarkerAlt, FaPlus, FaLocationArrow } from "react-icons/fa";
 import UserAvatarEdit from '../components/UserAvatarEdit';
 import summaryApi from '../common/summaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
@@ -8,6 +8,7 @@ import Axios from '../utils/Axios';
 import toast from 'react-hot-toast';
 import { setUserDetails } from '../store/userSlice';
 import fetchUserDetails from '../utils/fetchUserDetails';
+import Loadingg from '../components/loadingg';
 
 const Profile = () => {
   const user = useSelector(state => state.user)
@@ -19,6 +20,19 @@ const Profile = () => {
     mobile: user.mobile,
   })
   const [loading, setLoading] = useState(false)
+  const [addresses, setAddresses] = useState([])
+  const [addressForm, setAddressForm] = useState({
+    street: '',
+    city: '',
+    state: '',
+    pincode: '',
+    lat: null,
+    lng: null,
+    isDefault: false
+  })
+  const [addressLoading, setAddressLoading] = useState(false)
+  const [showAddressForm, setShowAddressForm] = useState(false)
+  const [geolocationLoading, setGeolocationLoading] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import sendEmail from '../config/sendEmail.js'
 import UserModel from '../models/userModel.js'
+import AddressModel from '../models/address.js'
 import bcryptjs from 'bcryptjs'
 import verifyEmailTemplate from '../utils/verifyEmailTemplate.js'
 import generatedAccessToken from '../utils/generateAcessToken.js'
@@ -506,9 +507,10 @@ export async function refreshToken(request,response){
 export async function userDetails(request,response) {
     try{
         const userId=request.userId
-        console.log(userId)
         
-        const user=await UserModel.findById(userId).select('-password -refresh_token')
+        const user=await UserModel.findById(userId)
+            .select('-password -refresh_token')
+            .populate('address_details', 'street city state pincode lat lng isDefault')
 
         return response.json({
             message:'user details',
@@ -522,6 +524,82 @@ export async function userDetails(request,response) {
             message:'something went wrong',
             error:true,
             success:false
+        })
+    }
+}
+
+export async function getUserAddresses(request,response) {
+    try {
+        const userId = request.userId
+        
+        const addresses = await AddressModel.find({ userId })
+            .sort({ createdAt: -1 })
+
+        return response.json({
+            message: 'User addresses fetched',
+            data: addresses,
+            error: false,
+            success: true
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message: error.message,
+            error: true,
+            success: false
+        })
+    }
+}
+
+export async function createAddress(request,response) {
+    try {
+        const userId = request.userId
+        const { street, city, state, pincode, lat, lng, isDefault } = request.body
+
+        if (!street || !city || !state || !pincode) {
+            return response.status(400).json({
+                message: 'street, city, state, pincode required',
+                error: true,
+                success: false
+            })
+        }
+
+        // If setting as default, unset others
+        if (isDefault) {
+            await AddressModel.updateMany({ 
+                userId, 
+                _id: { $ne: null }
+            }, { isDefault: false })
+        }
+
+        const address = new AddressModel({
+            userId,
+            street,
+            city,
+            state,
+            pincode,
+            lat,
+            lng,
+            isDefault: isDefault || false
+        })
+
+        const savedAddress = await address.save()
+
+        // Add to user.address_details
+        await UserModel.findByIdAndUpdate(userId, {
+            $push: { address_details: savedAddress._id }
+        })
+
+        return response.json({
+            message: 'Address created successfully',
+            data: savedAddress,
+            error: false,
+            success: true
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message: error.message,
+            error: true,
+            success: false
         })
     }
 }

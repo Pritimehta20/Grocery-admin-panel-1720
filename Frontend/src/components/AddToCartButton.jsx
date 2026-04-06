@@ -3,15 +3,18 @@ import { useGlobalContext } from '../provider/GlobalProvider'
 import { useSelector } from 'react-redux'
 import summaryApi from '../common/summaryApi'
 import AxiosToastError from '../utils/AxiosToastError'
+import Axios from '../utils/Axios'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import Axios from '../utils/Axios'
 import Loadingg from './loadingg'
 
 const AddToCartButton = ({ data }) => {
   const { fetchCartItem, updateCartItem, deleteCartItem } = useGlobalContext()
   const [loading, setLoading] = useState(false)
   const cartItem = useSelector(state => state.cartItem.cart)
+  const user = useSelector(state => state.user)
+  const navigate = useNavigate()
   const [isAvailableCart, setIsAvailableCart] = useState(false)
   const [qty, setQty] = useState(0)
   const [cartItemDetails, setCartItemsDetails] = useState(null)
@@ -19,6 +22,13 @@ const AddToCartButton = ({ data }) => {
   const handleADDTocart = async (e) => {
     e.preventDefault()
     e.stopPropagation()
+
+    // Check if user has addresses
+    if (!user.address_details || !Array.isArray(user.address_details) || user.address_details.length === 0) {
+      toast.error('Please add your delivery address in Profile first')
+      navigate('/profile')
+      return
+    }
 
     try {
       setLoading(true)

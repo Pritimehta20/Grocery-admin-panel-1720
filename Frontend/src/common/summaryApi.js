@@ -1,5 +1,4 @@
 export const baseUrl=import.meta.env.VITE_API_URL
-// export const baseUrl=import.meta.env.BUrl
 console.log("baseurl",baseUrl)
 
 const summaryApi={
@@ -146,6 +145,14 @@ const summaryApi={
     updateOrderStatus: {
         url: '/api/order/update-status/:id',
         method: 'put'
+    },
+    getUserAddresses: {
+        url: '/api/user/get-addresses',
+        method: 'get'
+    },
+    addUserAddress: {
+        url: '/api/user/add-address',
+        method: 'post'
     }
 }
 export default summaryApi
