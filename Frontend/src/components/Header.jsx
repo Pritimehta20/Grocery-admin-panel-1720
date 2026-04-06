@@ -83,6 +83,7 @@ const Header = () => {
                 {/* for desktop */}
 
                 <div className='hidden lg:flex items-center gap-10'>
+                    <Link to="/" className='font-semibold text-lg hover:text-emerald-600 transition-colors'>🏠 Home</Link>
                     {
                         user._id ?(
                             <div className='relative'>

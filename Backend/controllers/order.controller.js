@@ -38,11 +38,16 @@ export const placeOrderController = async (request, response) => {
         }))
 
         // Create order
+        // Get user's first/default address
+        const user = await UserModel.findById(userId).populate('address_details')
+        const deliveryAddressId = user.address_details?.find(addr => addr.isDefault)?._id || user.address_details[0]?._id
+        
         const order = new OrderModel({
             userId,
             items,
             paymentMethod,
             totalAmount,
+            deliveryAddress: deliveryAddressId,  // ✅ Set address for admin
             paymentStatus: paymentMethod === "COD" ? "cod" : "pending"
         })
 

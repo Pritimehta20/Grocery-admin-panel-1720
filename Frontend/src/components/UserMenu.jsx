@@ -52,6 +52,9 @@ const UserMenu = ({close}) => {
         <Divider/>
 
         <div className='text-sm grid gap-2'>
+          <Link onClick={handleClose} to={"/dashboard/profile"} className='px-2 hover:bg-orange-200 py-1 font-semibold flex items-center gap-2'>
+            👤 Profile
+          </Link>
           
           {
               isAdmin(user.role) && (
